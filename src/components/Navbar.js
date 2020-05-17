@@ -4,7 +4,7 @@ import "../App.css";
 const NavBar = () => {
   return (
     <div className="nav-bar">
-      <h1>NAVBAR</h1>
+      <h2>Search & Profile</h2>
     </div>
   );
 };

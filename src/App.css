@@ -10,7 +10,7 @@
 html,
 body {
   font-family: "Helvetica Now Text", sans-serif;
-  padding-right: 20px;
+  background-color: #F0F2F5;
 }
 
 h1{
@@ -25,6 +25,19 @@ h1{
 }
 
 .nav-bar{
-  padding: 10px;
-  background-color: lightskyblue;
+  margin-bottom: 10px;
+  background-color: #F0F2F5;
+  text-align: right;
+}
+.tabs{
+  font-family: "Helvetica Now Display", sans-serif;
+  font-weight: bold;
+  color: #425A70;
+}
+.content-container{
+  margin: 5px;
+  padding: 25px;
+  background-color: white;
+  border-radius: 5px;
+
 }
