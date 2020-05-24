@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Spinner } from "evergreen-ui";
 import { AnimatePresence, motion } from "framer-motion";
-import { yAxisVariantsSlower } from "../pages/utils/animConfig";
+import { yAxisVariantsSlower } from "../utils/animConfig";
 
 export const Home = () => {
   const [isLoading, setLoading] = useState(false);
