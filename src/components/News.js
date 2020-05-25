@@ -1,51 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { SearchInput, Spinner } from "evergreen-ui";
-import { NEWSKEY } from "../utils";
+import { NEWSKEY, STOCKKEY } from "../utils";
 import { articleAnimVariants } from "../utils/animConfig";
 import { AnimatePresence, motion } from "framer-motion";
+import { ThemeProvider } from "evergreen-ui";
 
 export const News = () => {
   const [isLoading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [stockArticles, setStockArticles] = useState([]);
 
   //API Call for  # articles
   useEffect(() => {
+    //Fetch News API
     fetch(
-      `https://newsapi.org/v2/top-headlines?pageSize=8&country=us&category=business&apiKey=${NEWSKEY}`
+      `https://newsapi.org/v2/top-headlines?pageSize=20&country=us&category=business&apiKey=${NEWSKEY}`
     )
       .then((response) => response.json())
       .then(
         (response) => {
           setArticles(response.articles);
-          setLoading(false);
         },
         (error) => {
           console.log(error);
           setLoading(false);
         }
       );
+    //Fetch Finance News API.. Spy for general
+    fetch(`https://cloud.iexapis.com/stable/stock/SPY/news?token=${STOCKKEY}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setStockArticles(response);
+        setLoading(false);
+      });
   }, []);
 
+  // Remove hyphen and source from titles and put them into a newTitle property.
+  //ex. "New Miracle Immunotherapy Treatment - Medical Journal" -> "New Miracle Immunotherapy Treatment"
   for (let article of articles) {
     article.source.name = article.title.match(/([^-])*$/g).join("");
-    //(?!(?:COVID-19)(?![\w-]))\S[^-]*$
-
     article.newTitle = article.title.replace(
       /(?!(?:COVID-19)(?![\w-]))\S[^-]*$/g,
       ""
     );
-    //article.newTitle = article.title.replace(/-.*$/g, "");
-    console.log(article.source.name);
-    console.log(article.newTitle);
+  }
+  if (stockArticles) {
+    for (let article of stockArticles){
+      console.log(article)
+    }
   }
 
-  return isLoading && articles.length === 0 ? (
+  return isLoading &&  stockArticles.length === 0 ? (
     <div className="spinner">
       <Spinner />
     </div>
   ) : (
     <AnimatePresence>
-      <div>
+      <div className="news-component">
         <motion.h2
           className="page-title"
           style={{ display: "inline-block" }}
@@ -69,8 +80,7 @@ export const News = () => {
           variants={articleAnimVariants}
         >
           <div className="title-stories">
-            <h1>{articles[0].newTitle}</h1>
-            <div>{articles[0].description}</div>
+            <h1>{stockArticles[2].headline}</h1>
             <div className="sub-headlines-container">
               <div className="sub-headline">{articles[1].newTitle}</div>
               <div className="sub-headline">{articles[2].newTitle}</div>
@@ -80,13 +90,13 @@ export const News = () => {
           <div className="headline-image-container">
             <img
               className="headline-image"
-              src={articles[0].urlToImage}
+              src={stockArticles[2].image}
               alt=""
             />
           </div>
         </motion.div>
         <motion.div className="sub-article-grid-container">
-          {articles.map((article, index) => (
+          {articles.slice(4, 12).map((article, index) => (
             <motion.div
               initial="hidden"
               animate="visible"
@@ -100,6 +110,21 @@ export const News = () => {
                 <h4 className="article-title">{article.newTitle}</h4>
               </div>
             </motion.div>
+          ))}{" "}
+          {articles.slice(13, 17).map((article, index) => (
+            <div className="sub-articles-2">
+              <div className="article-title-container">
+                <div className="image-container">
+                  <img
+                    className="article-image"
+                    src={article.urlToImage}
+                    alt={article.description}
+                  />
+                </div>
+                <span className="article-author">{article.source.name}</span>
+                <h4 className="article-title">{article.newTitle}</h4>
+              </div>
+            </div>
           ))}
         </motion.div>
       </div>
