@@ -127,8 +127,8 @@ button {
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
-  padding-bottom: 10px;
-  border-bottom: black 1px dotted;
+  padding-bottom: 40px;
+  border-bottom: #234361 1px solid;
 }
 .headline-image {
   width: 100%;
@@ -161,7 +161,7 @@ button {
 .article {
   list-style: none;
   padding-bottom: 10px;
-  border-bottom: black 1px solid;
+  border-bottom: #234361 1px solid;
 }
 .article-list {
   margin: 0;

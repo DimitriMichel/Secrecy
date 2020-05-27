@@ -4,6 +4,21 @@ import { NEWSKEY, STOCKKEY } from "../utils";
 import { articleAnimVariants } from "../utils/animConfig";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "evergreen-ui";
+import { v4 as uuidv4 } from "uuid";
+
+// Chart Component
+import Chart from "./Chart";
+import { AreaClosed, Line, Bar } from "@vx/shape";
+import { curveMonotoneX } from "@vx/curve";
+import { GridRows, GridColumns } from "@vx/grid";
+import { scaleTime, scaleLinear } from "@vx/scale";
+import { useTooltip, Tooltip } from "@vx/tooltip";
+import { localPoint } from "@vx/event";
+import { bisector } from "d3-array";
+import { Group } from "@vx/group";
+import { timeFormat } from "d3-time-format";
+import { appleStock } from "@vx/mock-data";
+import { GradientOrangeRed } from "@vx/gradient";
 
 export const News = () => {
   const [isLoading, setLoading] = useState(true);
@@ -14,7 +29,7 @@ export const News = () => {
   useEffect(() => {
     //Fetch News API
     fetch(
-      `https://newsapi.org/v2/top-headlines?pageSize=20&country=us&category=business&apiKey=${NEWSKEY}`
+      `https://stormy-fortress-63048.herokuapp.com/https://newsapi.org/v2/top-headlines?pageSize=20&country=us&category=business&apiKey=${NEWSKEY}`
     )
       .then((response) => response.json())
       .then(
@@ -44,13 +59,9 @@ export const News = () => {
       ""
     );
   }
-  if (stockArticles) {
-    for (let article of stockArticles){
-      console.log(article)
-    }
-  }
 
-  return isLoading &&  stockArticles.length === 0 ? (
+
+  return articles.length === 0 || stockArticles.length === 0 ? (
     <div className="spinner">
       <Spinner />
     </div>
@@ -73,6 +84,10 @@ export const News = () => {
             <SearchInput placeholder="Search Ticker.." height={35} />
           </motion.div>
         </div>
+        <div className="chart" style={{ height: 500 }}>
+          <Chart />
+        </div>
+
         <motion.div
           className="headline-grid-container"
           initial="hidden"
@@ -96,14 +111,14 @@ export const News = () => {
           </div>
         </motion.div>
         <motion.div className="sub-article-grid-container">
-          {articles.slice(4, 12).map((article, index) => (
+          {articles.slice(8, 12).map((article, index) => (
             <motion.div
               initial="hidden"
               animate="visible"
               variants={articleAnimVariants}
               transition={{ staggerChildren: 0.1 }}
               className="article"
-              key={index}
+              key={uuidv4()}
             >
               <div className="article-title-container">
                 <span className="article-author">{article.source.name}</span>
@@ -111,9 +126,9 @@ export const News = () => {
               </div>
             </motion.div>
           ))}{" "}
-          {articles.slice(13, 17).map((article, index) => (
+          {articles.slice(13, 17).map((article) => (
             <div className="sub-articles-2">
-              <div className="article-title-container">
+              <div className="article-title-container" key={uuidv4()}>
                 <div className="image-container">
                   <img
                     className="article-image"
