@@ -41,7 +41,7 @@ export const News = () => {
           setLoading(false);
         }
       );
-    //Fetch Finance News API.. Spy for general
+    //Fetch Finance News API.. SPY for general S&P news
     fetch(`https://cloud.iexapis.com/stable/stock/SPY/news?token=${STOCKKEY}`)
       .then((response) => response.json())
       .then((response) => {
@@ -59,7 +59,6 @@ export const News = () => {
       ""
     );
   }
-
 
   return articles.length === 0 || stockArticles.length === 0 ? (
     <div className="spinner">
@@ -84,10 +83,6 @@ export const News = () => {
             <SearchInput placeholder="Search Ticker.." height={35} />
           </motion.div>
         </div>
-        <div className="chart" style={{ height: 500 }}>
-          <Chart />
-        </div>
-
         <motion.div
           className="headline-grid-container"
           initial="hidden"
@@ -95,17 +90,19 @@ export const News = () => {
           variants={articleAnimVariants}
         >
           <div className="title-stories">
-            <h1>{stockArticles[2].headline}</h1>
+            <div className="headline">
+              <div>{articles[1].newTitle}</div>
+            </div>
             <div className="sub-headlines-container">
-              <div className="sub-headline">{articles[1].newTitle}</div>
               <div className="sub-headline">{articles[2].newTitle}</div>
               <div className="sub-headline">{articles[3].newTitle}</div>
+              <div className="sub-headline">{articles[4].newTitle}</div>
             </div>
           </div>
           <div className="headline-image-container">
             <img
               className="headline-image"
-              src={stockArticles[2].image}
+              src={articles[1].urlToImage}
               alt=""
             />
           </div>

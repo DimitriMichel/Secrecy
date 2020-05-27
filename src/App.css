@@ -1,21 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;400;900&display=swap");
+
 @font-face {
-  font-family: "Helvetica Now Text";
-  src: url("/fonts");
+  font-family: "NeueHaasDisplay-Black", sans-serif;
+  src: local("NeueHaasDisplay-Black"),
+    url(./fonts/NeueHaasDisplay-Black.ttf) format("truetype");
 }
 @font-face {
-  font-family: "Helvetica Now Display";
-  src: url("/fonts");
+  font-family: "NeueHaasDisplay-Roman", sans-serif;
+  src: local("NeueHaasDisplay-Roman"),
+    url(./fonts/NeueHaasDisplay-Roman.ttf) format("truetype");
+}
+@font-face {
+  font-family: "NeueHaasDisplay-Bold", sans-serif;
+  src: local("NeueHaasDisplay-Bold"),
+    url(./fonts/NeueHaasDisplay-Bold.ttf) format("truetype");
 }
 
 html,
 body {
-  font-family: "Helvetica Now Text", sans-serif;
-  background-color: #425A70;
+  font-family: NeueHaasDisplay-Roman, sans-serif;
+  background-color: #425a70;
   margin: 0;
-}
-
-h1 {
-  font-family: "Helvetica Now Display", sans-serif;
 }
 
 h2 {
@@ -48,14 +55,14 @@ button {
 .sidenav {
   width: 160px;
   padding: 20px;
-  background-color:#F9F9FB;
+  background-color: #f9f9fb;
 }
 .tabs {
   margin-top: 80px;
   border-top: 1px lightgrey solid;
   border-bottom: 1px lightgrey solid;
-  font-family: "Helvetica Now Display", sans-serif;
-  font-weight: bold;
+  font-family: NeueHaasDisplay-Roman, sans-serif;
+  font-weight: 600;
 }
 .tab-text {
   margin: 0 0 0 5px;
@@ -71,7 +78,6 @@ button {
 }
 
 .container-wrapper {
-
 }
 .main {
   width: 100%;
@@ -81,7 +87,7 @@ button {
   width: 100%;
   grid-template-columns: fit-content(20%) 1fr;
   grid-row-gap: 20px;
-  background-color: #425A70;
+  background-color: #425a70;
   margin-top: 50px;
 }
 .content-components {
@@ -112,7 +118,7 @@ button {
 * NEWS PAGE
 *
 */
-.news-component{
+.news-component {
   max-width: 100%;
 }
 .search-container {
@@ -120,15 +126,25 @@ button {
   float: right;
   display: inline;
 }
-
+.headline {
+  line-height: 1.1;
+  font-family: "NeueHaasDisplay-Black", sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+.headline :hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .headline-grid-container {
-  margin: 2% 1% 0 1%;
+  margin: 2% 0 0 5px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
   padding-bottom: 40px;
-  border-bottom: #234361 1px solid;
+  border-bottom: #234361 1px dotted;
 }
 .headline-image {
   width: 100%;
@@ -143,10 +159,11 @@ button {
   margin-right: 10px;
 }
 .sub-headline {
-  font-family: "Helvetica Now Text", sans-serif;
+  font-family: NeueHaasDisplay-Roman, sans-serif;
   font-weight: normal;
-  margin-bottom: 10px;
+  margin-bottom: 13px;
   font-size: 14px;
+
   text-decoration: underline;
   text-underline: #f7f8f9;
 }
@@ -161,14 +178,15 @@ button {
 .article {
   list-style: none;
   padding-bottom: 10px;
-  border-bottom: #234361 1px solid;
+  font-size: 20px;
+  border-bottom: #234361 1px dotted;
 }
 .article-list {
   margin: 0;
   padding: 0;
 }
 .article-title {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .article-title-container {
   max-width: 299px;
@@ -177,6 +195,9 @@ button {
   text-decoration: underline;
   text-underline: #f7f8f9;
   cursor: pointer;
+}
+.article-author {
+  font-size: 13px;
 }
 .article-image {
   height: 220px;
@@ -187,7 +208,6 @@ button {
   overflow-x: hidden;
   max-width: 100%;
 }
-.sub-articles-2{
+.sub-articles-2 {
   margin-top: 10%;
 }
-

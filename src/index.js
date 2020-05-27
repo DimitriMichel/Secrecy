@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './fonts/NeueHaasDisplay-Black.ttf'
+import './fonts/NeueHaasDisplay-Roman.ttf'
+import './fonts/NeueHaasDisplay-Bold.ttf'
+import "./App.css"
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
