@@ -5,31 +5,21 @@ import { articleAnimVariants } from "../utils/animConfig";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "evergreen-ui";
 import { v4 as uuidv4 } from "uuid";
-
-// Chart Component
 import Chart from "./Chart";
-import { AreaClosed, Line, Bar } from "@vx/shape";
-import { curveMonotoneX } from "@vx/curve";
-import { GridRows, GridColumns } from "@vx/grid";
-import { scaleTime, scaleLinear } from "@vx/scale";
-import { useTooltip, Tooltip } from "@vx/tooltip";
-import { localPoint } from "@vx/event";
-import { bisector } from "d3-array";
-import { Group } from "@vx/group";
-import { timeFormat } from "d3-time-format";
 import { appleStock } from "@vx/mock-data";
-import { GradientOrangeRed } from "@vx/gradient";
+import { thresholdFreedmanDiaconis } from "d3-array";
 
 export const News = () => {
   const [isLoading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [stockArticles, setStockArticles] = useState([]);
+  const [spyData, setSPYData] = useState([]);
 
   //API Call for  # articles
   useEffect(() => {
     //Fetch News API
     fetch(
-      `https://stormy-fortress-63048.herokuapp.com/https://newsapi.org/v2/top-headlines?pageSize=20&country=us&category=business&apiKey=${NEWSKEY}`
+      `https://newsapi.org/v2/top-headlines?pageSize=20&country=us&category=business&apiKey=${NEWSKEY}`
     )
       .then((response) => response.json())
       .then(
@@ -38,16 +28,22 @@ export const News = () => {
         },
         (error) => {
           console.log(error);
-          setLoading(false);
         }
       );
     //Fetch Finance News API.. SPY for general S&P news
-    fetch(`https://cloud.iexapis.com/stable/stock/SPY/news?token=${STOCKKEY}`)
+    /*fetch(`https://cloud.iexapis.com/stable/stock/SPY/news?token=${STOCKKEY}`)
       .then((response) => response.json())
       .then((response) => {
         setStockArticles(response);
+      });*/
+    /*fetch(
+      `https://cloud.iexapis.com/stable/stock/SPY/chart/max?token=${STOCKKEY}`
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setSPYData(response);
         setLoading(false);
-      });
+      });*/
   }, []);
 
   // Remove hyphen and source from titles and put them into a newTitle property.
@@ -60,7 +56,7 @@ export const News = () => {
     );
   }
 
-  return articles.length === 0 || stockArticles.length === 0 ? (
+  return articles.length === 0 ? (
     <div className="spinner">
       <Spinner />
     </div>
@@ -97,6 +93,9 @@ export const News = () => {
               <div className="sub-headline">{articles[2].newTitle}</div>
               <div className="sub-headline">{articles[3].newTitle}</div>
               <div className="sub-headline">{articles[4].newTitle}</div>
+              <div className="chart">
+                <Chart stock={appleStock} height={100} width={550} />
+              </div>
             </div>
           </div>
           <div className="headline-image-container">
@@ -106,7 +105,7 @@ export const News = () => {
               alt=""
             />
           </div>
-        </motion.div>
+        </motion.div>{" "}
         <motion.div className="sub-article-grid-container">
           {articles.slice(8, 12).map((article, index) => (
             <motion.div
@@ -122,7 +121,7 @@ export const News = () => {
                 <h4 className="article-title">{article.newTitle}</h4>
               </div>
             </motion.div>
-          ))}{" "}
+          ))}
           {articles.slice(13, 17).map((article) => (
             <div className="sub-articles-2">
               <div className="article-title-container" key={uuidv4()}>

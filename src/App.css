@@ -153,6 +153,7 @@ button {
 }
 .sub-headlines-container {
   padding: 14px;
+
   background-color: #f9f9fb;
   border-radius: 5px;
   margin-top: 10px;
@@ -210,4 +211,13 @@ button {
 }
 .sub-articles-2 {
   margin-top: 10%;
+}
+.news-stock-grid {
+  margin-top: 30px;
+  border-top: #425a70 1px dotted;
+  margin-left: 10px;
+}
+.chart {
+  width: 550px;
+  margin-top: 20px;
 }
