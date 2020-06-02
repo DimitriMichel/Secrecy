@@ -1,18 +1,13 @@
 import React from "react";
 // Chart Imports
-import { AreaClosed, Line, Bar, LinePath } from "@vx/shape";
+import { AreaClosed, Line, Bar} from "@vx/shape";
 import { curveMonotoneX } from "@vx/curve";
 import { GridRows, GridColumns } from "@vx/grid";
 import { scaleTime, scaleLinear } from "@vx/scale";
-import { useTooltip, TooltipWithBounds, Tooltip } from "@vx/tooltip";
+import { useTooltip, Tooltip } from "@vx/tooltip";
 import { localPoint } from "@vx/event";
 import { bisector } from "d3-array";
 import { timeFormat } from "d3-time-format";
-import { appleStock } from "@vx/mock-data";
-import { extent, max } from "d3-array";
-import { Group } from "@vx/group";
-import { AxisLeft, AxisBottom } from "@vx/axis";
-import { LinearGradient } from "@vx/gradient";
 
 const Chart = ({ stock, width, height }) => {
   //const stock = appleStock.slice(800);

@@ -21,7 +21,7 @@
 html,
 body {
   font-family: NeueHaasDisplay-Roman, sans-serif;
-  background-color: #425a70;
+  background-color: #D7DCE0;
   margin: 0;
 }
 
@@ -38,6 +38,10 @@ button {
   border: none;
   font-size: 13px;
 }
+a{
+  text-decoration: underline;
+  color: initial;
+}
 .nav-bar {
   padding: 15px;
   background-color: white;
@@ -45,6 +49,7 @@ button {
   position: fixed;
   z-index: 1000;
   text-align: right;
+  display: none;
 }
 
 .wrapper {
@@ -56,6 +61,10 @@ button {
   width: 160px;
   padding: 20px;
   background-color: #f9f9fb;
+}
+
+.side-nav-elements{
+  position: fixed;
 }
 .tabs {
   margin-top: 80px;
@@ -85,10 +94,10 @@ button {
 .layout-grid-container {
   display: grid;
   width: 100%;
+
   grid-template-columns: fit-content(20%) 1fr;
   grid-row-gap: 20px;
-  background-color: #425a70;
-  margin-top: 50px;
+  background-color: #D7DCE0;
 }
 .content-components {
   margin-top: 30px;
@@ -221,3 +230,55 @@ button {
   width: 550px;
   margin-top: 20px;
 }
+/* Side Nav Profile */
+.profile-container{
+  width: 100%;
+  text-align: center;
+}
+.profile{
+  margin-top: 20px;
+}
+
+
+/* Status */
+.statuses{
+  margin: 15px 20px;
+  border: #D7DCE0 0.5px solid;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-right: 1px;
+}
+.status-container{
+  background-color: white;
+  padding: 30px;
+  border-bottom: 1px #D7DCE0 solid;
+  display: grid;
+  grid-template-columns: fit-content(10%) 1fr;
+}
+
+.avatar-container{
+  padding: 0 13px 0 0;
+}
+.status-created{
+  color: gray;
+  font-size: 13px;
+}
+.status-username{
+  font-weight: bold;
+  text-decoration: none;
+
+}
+.status-tags{
+  font-family: NeueHaasDisplay-Roman, sans-serif !important;
+  color: #234361 !important;
+  font-size: 16px !important;
+  margin-bottom: 3px !important;
+}
+.status-username:hover{
+  text-decoration: underline black;
+}
+.status-body{
+  margin-top: 15px;
+}
+
+

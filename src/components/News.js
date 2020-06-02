@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { SearchInput, Spinner } from "evergreen-ui";
-import { NEWSKEY, STOCKKEY } from "../utils";
+import { NEWSKEY} from "../utils";
 import { articleAnimVariants } from "../utils/animConfig";
 import { AnimatePresence, motion } from "framer-motion";
-import { ThemeProvider } from "evergreen-ui";
 import { v4 as uuidv4 } from "uuid";
 import Chart from "./Chart";
 import { appleStock } from "@vx/mock-data";
-import { thresholdFreedmanDiaconis } from "d3-array";
 
 export const News = () => {
-  const [isLoading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
-  const [stockArticles, setStockArticles] = useState([]);
-  const [spyData, setSPYData] = useState([]);
+  //const [stockArticles, setStockArticles] = useState([]);
+  //const [spyData, setSPYData] = useState([]);
 
   //API Call for  # articles
   useEffect(() => {

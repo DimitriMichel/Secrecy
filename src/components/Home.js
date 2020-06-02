@@ -1,29 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Spinner } from "evergreen-ui";
-import { AnimatePresence, motion } from "framer-motion";
-import { yAxisVariantsSlower } from "../utils/animConfig";
-
+import { motion } from "framer-motion";
+import { v4 as uuidv4 } from "uuid";
+import Status from "./Status";
+import { articleAnimVariants } from "../utils/animConfig";
 export const Home = () => {
-  const [isLoading, setLoading] = useState(false);
-  return isLoading ? (
-    <Spinner />
+  const [isLoading, setLoading] = useState(true);
+  const [statuses, setStatuses] = useState(null);
+
+  useEffect(() => {
+    fetch(`https://us-east1-hanover-c2d8f.cloudfunctions.net/api/statuses`)
+      .then((response) => response.json())
+      .then((response) => {
+        setStatuses(response);
+        setLoading(false);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  if (!isLoading) {
+    console.log(statuses);
+  }
+  const statusList = isLoading ? (
+    <div className="spinner">
+      <Spinner />
+    </div>
   ) : (
-    <AnimatePresence>
-      <div className="content-header">
+    statuses.map((status) => (
+      <div key={status.statusID}  className="status-list-item">
+        <Status status={status} />
+      </div>
+    ))
+  );
+  return isLoading ? (
+    <div className="spinner">
+      <Spinner />
+    </div>
+  ) : (
+    <div>
+      <div>
         <motion.h2
+          className="page-title"
           style={{ display: "inline-block" }}
-          animate={{ y: -10, opacity: 1}}
+          animate={{ y: [10, 0], opacity: 1 }}
           transition={{ duration: 0.2 }}
         >
           Home
-        </motion.h2><br/>
-        <motion.button className='button'
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.1 }}
-        >
-          Next
-        </motion.button>
+        </motion.h2>
       </div>
-    </AnimatePresence>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={articleAnimVariants}
+        className="statuses"
+      >
+        {statusList}
+      </motion.div>
+    </div>
   );
 };
