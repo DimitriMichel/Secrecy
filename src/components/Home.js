@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Spinner } from "evergreen-ui";
 import { motion } from "framer-motion";
-import { v4 as uuidv4 } from "uuid";
 import Status from "./Status";
 import { articleAnimVariants } from "../utils/animConfig";
 export const Home = () => {
@@ -17,9 +16,7 @@ export const Home = () => {
       })
       .catch((error) => console.log(error));
   }, []);
-  if (!isLoading) {
-    console.log(statuses);
-  }
+
   const statusList = isLoading ? (
     <div className="spinner">
       <Spinner />
